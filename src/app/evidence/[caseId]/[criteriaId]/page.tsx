@@ -46,7 +46,7 @@ export default function EvidencePage() {
           // Initialize empty evidence data
           const initial: EvidenceData = {};
           criteriaConfig?.fields.forEach((field) => {
-            initial[field.id] = field.type === "urls" ? [""] : null;
+            initial[field.id] = field.type === "urls" || field.type === "files" ? (field.type === "urls" ? [""] : []) : null;
           });
           setEvidenceData(initial);
         }
@@ -90,6 +90,11 @@ export default function EvidencePage() {
           const urls = value as string[] | null;
           if (!urls || urls.length === 0 || urls.every((u) => !u.trim())) {
             newErrors[field.id] = "At least one URL is required";
+          }
+        } else if (field.type === "files") {
+          const files = value as string[] | null;
+          if (!files || files.length === 0) {
+            newErrors[field.id] = "At least one file is required";
           }
         } else {
           if (!value || (typeof value === "string" && !value.trim())) {

@@ -5,6 +5,7 @@ import { TextField } from "./TextField";
 import { DateField } from "./DateField";
 import { UrlField } from "./UrlField";
 import { MultiUrlField } from "./MultiUrlField";
+import { MultiFileField } from "./MultiFileField";
 
 interface FieldRendererProps {
   field: FieldConfig;
@@ -51,6 +52,16 @@ export function FieldRenderer({ field, value, onChange, error }: FieldRendererPr
         <MultiUrlField
           field={field}
           value={(value as string[]) || [""]}
+          onChange={onChange as (v: string[]) => void}
+          error={error}
+        />
+      );
+
+    case "files":
+      return (
+        <MultiFileField
+          field={field}
+          value={(value as string[]) || []}
           onChange={onChange as (v: string[]) => void}
           error={error}
         />

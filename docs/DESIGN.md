@@ -110,4 +110,6 @@ Assumptions
 
 
 What to do differently with more time?
-- 
+- Add authentication so only case owner can access case
+- More extensive testing
+- Check files for malicious content before allowing upload
