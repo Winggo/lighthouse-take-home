@@ -56,3 +56,18 @@ body {
 .animate-fade-in {
   animation: fade-in 0.2s ease-out;
 }
+
+@keyframes slide-in-bottom-right {
+  from {
+    opacity: 0;
+    transform: translate(20px, 20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.animate-slide-in-bottom-right {
+  animation: slide-in-bottom-right 0.3s ease-out;
+}
