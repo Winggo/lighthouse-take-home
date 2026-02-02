@@ -29,8 +29,40 @@ export interface QuestionConfig {
 
 export const QUESTIONS: QuestionConfig[] = [
   {
-    id: "jobTitle",
+    id: "name",
     index: 0,
+    type: "text",
+    question: "What is your name?",
+    subtext: "First, middle, and last name",
+    placeholder: "Miles Morales",
+  },
+  {
+    id: "email",
+    index: 1,
+    type: "text",
+    question: "What is your email?",
+    subtext: "All information will be sent to this email",
+    placeholder: "hello@yourname.com",
+  },
+  {
+    id: "birthday",
+    index: 2,
+    type: "text",
+    question: "What is your date of birth?",
+    subtext: "Format in MM/DD/YYYY",
+    placeholder: "04/15/1990",
+  },
+  {
+    id: "address",
+    index: 3,
+    type: "text",
+    question: "Where do you currently reside?",
+    subtext: "Name of country",
+    placeholder: "United States",
+  },
+  {
+    id: "jobTitle",
+    index: 4,
     type: "text",
     question: "What is your current job title and primary field?",
     subtext: "For example: Senior Software Engineer, Machine Learning",
@@ -38,7 +70,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "compensation",
-    index: 1,
+    index: 5,
     type: "currency",
     question: "What is your current total compensation (salary + equity + bonuses)?",
     subtext: "Annual amount in USD. This helps determine high remuneration eligibility.",
@@ -46,7 +78,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "roleDescription",
-    index: 2,
+    index: 6,
     type: "textarea",
     question: "Describe your role and impact at your current company in 2-3 sentences.",
     subtext: "Focus on what makes your contribution unique or significant.",
@@ -54,7 +86,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "hasAwards",
-    index: 3,
+    index: 7,
     type: "yes_no",
     question: "Have you received any awards, grants, or recognitions in your field?",
     subtext: "Include industry awards, academic honors, competitive grants, or recognition from professional bodies.",
@@ -63,7 +95,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "professionalActivities",
-    index: 4,
+    index: 8,
     type: "multi_select",
     question: "Which of the following have you done professionally?",
     subtext: "Select all that apply",
@@ -80,7 +112,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "hasMemberships",
-    index: 5,
+    index: 9,
     type: "yes_no",
     question: "Are you a member of any professional organizations or associations?",
     subtext: "Include selective organizations that require demonstrated achievement for membership.",
@@ -89,7 +121,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "yearsExperience",
-    index: 6,
+    index: 10,
     type: "number",
     question: "How many years of experience do you have in your field?",
     subtext: "Include all relevant professional experience",
@@ -97,7 +129,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "hasMediaCoverage",
-    index: 7,
+    index: 11,
     type: "yes_no",
     question: "Has your work been covered by media, press, or industry publications?",
     subtext: "This includes news articles, podcasts, or profiles in trade publications about you or your work.",
@@ -106,7 +138,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "employerType",
-    index: 8,
+    index: 12,
     type: "single_select",
     question: "Select the statement that best describes your current employer or most recent organization",
     options: [
@@ -120,7 +152,7 @@ export const QUESTIONS: QuestionConfig[] = [
   },
   {
     id: "measurableImpact",
-    index: 9,
+    index: 13,
     type: "textarea",
     question: "What measurable impact has your work had?",
     subtext: "Include metrics like revenue generated, users served, efficiency improvements, citations, etc.",
