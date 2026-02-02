@@ -8,9 +8,10 @@ interface UrlFieldProps {
   value: string;
   onChange: (value: string) => void;
   error?: string;
+  disabled?: boolean;
 }
 
-export function UrlField({ field, value, onChange, error }: UrlFieldProps) {
+export function UrlField({ field, value, onChange, error, disabled }: UrlFieldProps) {
   return (
     <Input
       type="url"
@@ -21,6 +22,7 @@ export function UrlField({ field, value, onChange, error }: UrlFieldProps) {
       hint={field.hint}
       error={error}
       required={field.required}
+      disabled={disabled}
     />
   );
 }

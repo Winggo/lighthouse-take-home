@@ -44,6 +44,7 @@ interface CriteriaSectionProps {
   criteriaConfig: CriteriaConfig;
   status: "completed" | "in_progress" | "not_started";
   onClick: () => void;
+  disabled?: boolean;
 }
 
 function CriteriaSection({
@@ -51,13 +52,15 @@ function CriteriaSection({
   criteriaConfig,
   status,
   onClick,
+  disabled,
 }: CriteriaSectionProps) {
   return (
     <button
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
+      disabled={disabled}
       className={`
         w-full text-left p-6 rounded-xl border-2 transition-all
-        hover:shadow-lg hover:border-gray-300
+        ${disabled ? "cursor-default opacity-75" : "hover:shadow-lg hover:border-gray-300"}
         bg-[#2a3a36] border-gray-700
       `}
     >
@@ -132,26 +135,28 @@ function CriteriaSection({
       </div>
 
       {/* Click hint */}
-      <div className="mt-4 flex items-center text-gray-400 text-sm font-medium">
-        {status === "completed"
-          ? "View submitted evidence"
-          : status === "in_progress"
-            ? "Continue collecting evidence"
-            : "Start collecting evidence"}
-        <svg
-          className="w-4 h-4 ml-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </div>
+      {!disabled && (
+        <div className="mt-4 flex items-center text-gray-400 text-sm font-medium">
+          {status === "completed"
+            ? "View submitted evidence"
+            : status === "in_progress"
+              ? "Continue collecting evidence"
+              : "Start collecting evidence"}
+          <svg
+            className="w-4 h-4 ml-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </div>
+      )}
     </button>
   );
 }
@@ -283,7 +288,7 @@ export default function DashboardPage() {
                   Application Submitted
                 </h2>
                 <p className="text-green-700">
-                  Your O-1 case has been submitted successfully.
+                  Your O-1 case has been submitted successfully. Your case manager will review and get back to you within 2-3 business days.
                 </p>
               </div>
             </div>
@@ -354,6 +359,7 @@ export default function DashboardPage() {
                 criteriaConfig={criteriaConfig}
                 status={status}
                 onClick={() => handleCriteriaClick(recommendation.criteriaId)}
+                disabled={isSubmitted}
               />
             );
           })}

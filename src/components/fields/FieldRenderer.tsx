@@ -12,9 +12,10 @@ interface FieldRendererProps {
   value: string | string[] | null;
   onChange: (value: string | string[]) => void;
   error?: string;
+  disabled?: boolean;
 }
 
-export function FieldRenderer({ field, value, onChange, error }: FieldRendererProps) {
+export function FieldRenderer({ field, value, onChange, error, disabled }: FieldRendererProps) {
   switch (field.type) {
     case "text":
     case "textarea":
@@ -24,6 +25,7 @@ export function FieldRenderer({ field, value, onChange, error }: FieldRendererPr
           value={value as string}
           onChange={onChange as (v: string) => void}
           error={error}
+          disabled={disabled}
         />
       );
 
@@ -34,6 +36,7 @@ export function FieldRenderer({ field, value, onChange, error }: FieldRendererPr
           value={value as string}
           onChange={onChange as (v: string) => void}
           error={error}
+          disabled={disabled}
         />
       );
 
@@ -44,6 +47,7 @@ export function FieldRenderer({ field, value, onChange, error }: FieldRendererPr
           value={value as string}
           onChange={onChange as (v: string) => void}
           error={error}
+          disabled={disabled}
         />
       );
 
@@ -54,6 +58,7 @@ export function FieldRenderer({ field, value, onChange, error }: FieldRendererPr
           value={(value as string[]) || [""]}
           onChange={onChange as (v: string[]) => void}
           error={error}
+          disabled={disabled}
         />
       );
 
@@ -64,6 +69,7 @@ export function FieldRenderer({ field, value, onChange, error }: FieldRendererPr
           value={(value as string[]) || []}
           onChange={onChange as (v: string[]) => void}
           error={error}
+          disabled={disabled}
         />
       );
 

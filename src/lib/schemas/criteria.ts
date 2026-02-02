@@ -200,7 +200,7 @@ export const O1_CRITERIA: CriteriaConfig[] = [
       {
         id: "evidence_urls",
         label: "Evidence URLs",
-        type: "files",
+        type: "urls",
         required: false,
         hint: "Links to invitation letters, reviewer acknowledgments, certificates, or screenshots",
       },

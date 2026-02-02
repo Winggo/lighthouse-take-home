@@ -184,6 +184,7 @@ export default function EvidencePage() {
   }
 
   const isAlreadyComplete = caseData?.completedCriteria.includes(criteriaId);
+  const isSubmitted = caseData?.status === "submitted";
 
   return (
     <div className="min-h-screen bg-[#374B46]">
@@ -218,27 +219,55 @@ export default function EvidencePage() {
 
       {/* Help text */}
       <div className="max-w-3xl mx-auto px-4 py-6">
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
-          <div className="flex items-start gap-3">
-            <svg
-              className="w-5 h-5 text-gray-600 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <div>
-              <h3 className="font-medium text-gray-800">Tips for Strong Evidence</h3>
-              <p className="text-gray-700 text-sm mt-1">{criteriaConfig.helpText}</p>
+        {isSubmitted && (
+          <div className="bg-green-100 border border-green-200 rounded-xl p-4 mb-6">
+            <div className="flex items-start gap-3">
+              <svg
+                className="w-5 h-5 text-green-600 mt-0.5 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <h3 className="font-medium text-green-800">Case Submitted</h3>
+                <p className="text-green-700 text-sm mt-1">
+                  This case has been submitted and can no longer be edited.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
+
+        {!isSubmitted && (
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
+            <div className="flex items-start gap-3">
+              <svg
+                className="w-5 h-5 text-gray-600 mt-0.5 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <h3 className="font-medium text-gray-800">Tips for Strong Evidence</h3>
+                <p className="text-gray-700 text-sm mt-1">{criteriaConfig.helpText}</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Form */}
         <div className="bg-[#2a3a36] rounded-xl shadow-sm border border-gray-700 p-6">
@@ -250,27 +279,30 @@ export default function EvidencePage() {
                 value={evidenceData[field.id]}
                 onChange={(value) => handleFieldChange(field.id, value)}
                 error={errors[field.id]}
+                disabled={isSubmitted}
               />
             ))}
           </div>
 
           {/* Actions */}
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-end">
-            <Button
-              variant="outline"
-              onClick={() => handleSave(false)}
-              disabled={isSaving}
-            >
-              Save Draft
-            </Button>
-            <Button
-              onClick={() => handleSave(true)}
-              isLoading={isSaving}
-              disabled={isSaving}
-            >
-              {isAlreadyComplete ? "Update & Complete" : "Submit Evidence"}
-            </Button>
-          </div>
+          {!isSubmitted && (
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-end">
+              <Button
+                variant="outline"
+                onClick={() => handleSave(false)}
+                disabled={isSaving}
+              >
+                Save Draft
+              </Button>
+              <Button
+                onClick={() => handleSave(true)}
+                isLoading={isSaving}
+                disabled={isSaving}
+              >
+                {isAlreadyComplete ? "Update & Complete" : "Submit Evidence"}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

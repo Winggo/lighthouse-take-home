@@ -9,9 +9,10 @@ interface MultiFileFieldProps {
   value: string[];
   onChange: (value: string[]) => void;
   error?: string;
+  disabled?: boolean;
 }
 
-export function MultiFileField({ field, value, onChange, error }: MultiFileFieldProps) {
+export function MultiFileField({ field, value, onChange, error, disabled }: MultiFileFieldProps) {
   const files = value || [];
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -51,6 +52,7 @@ export function MultiFileField({ field, value, onChange, error }: MultiFileField
         onChange={handleFileChange}
         className="hidden"
         accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt"
+        disabled={disabled}
       />
 
       {/* Display selected files */}
@@ -77,28 +79,32 @@ export function MultiFileField({ field, value, onChange, error }: MultiFileField
                 </svg>
                 <span className="text-sm text-gray-300 truncate">{fileName}</span>
               </div>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => removeFile(index)}
-                className="text-red-500 hover:text-red-700 px-2 ml-2 flex-shrink-0"
-              >
-                Remove
-              </Button>
+              {!disabled && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => removeFile(index)}
+                  className="text-red-500 hover:text-red-700 px-2 ml-2 flex-shrink-0"
+                >
+                  Remove
+                </Button>
+              )}
             </div>
           ))}
         </div>
       )}
 
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        onClick={triggerFileInput}
-      >
-        + Add file(s)
-      </Button>
+      {!disabled && (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={triggerFileInput}
+        >
+          + Add file(s)
+        </Button>
+      )}
 
       {field.hint && !error && (
         <p className="text-sm text-gray-400">{field.hint}</p>

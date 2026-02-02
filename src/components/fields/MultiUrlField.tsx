@@ -9,9 +9,10 @@ interface MultiUrlFieldProps {
   value: string[];
   onChange: (value: string[]) => void;
   error?: string;
+  disabled?: boolean;
 }
 
-export function MultiUrlField({ field, value, onChange, error }: MultiUrlFieldProps) {
+export function MultiUrlField({ field, value, onChange, error, disabled }: MultiUrlFieldProps) {
   const urls = value || [""];
 
   const handleUrlChange = (index: number, newUrl: string) => {
@@ -46,8 +47,9 @@ export function MultiUrlField({ field, value, onChange, error }: MultiUrlFieldPr
             onChange={(e) => handleUrlChange(index, e.target.value)}
             placeholder="https://drive.google.com/..."
             className="flex-1"
+            disabled={disabled}
           />
-          {urls.length > 1 && (
+          {urls.length > 1 && !disabled && (
             <Button
               type="button"
               variant="ghost"
@@ -61,14 +63,16 @@ export function MultiUrlField({ field, value, onChange, error }: MultiUrlFieldPr
         </div>
       ))}
 
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        onClick={addUrl}
-      >
-        + Add another URL
-      </Button>
+      {!disabled && (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={addUrl}
+        >
+          + Add another URL
+        </Button>
+      )}
 
       {field.hint && !error && (
         <p className="text-sm text-gray-400">{field.hint}</p>

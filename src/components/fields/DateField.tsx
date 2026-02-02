@@ -8,9 +8,10 @@ interface DateFieldProps {
   value: string;
   onChange: (value: string) => void;
   error?: string;
+  disabled?: boolean;
 }
 
-export function DateField({ field, value, onChange, error }: DateFieldProps) {
+export function DateField({ field, value, onChange, error, disabled }: DateFieldProps) {
   return (
     <Input
       type="date"
@@ -20,6 +21,7 @@ export function DateField({ field, value, onChange, error }: DateFieldProps) {
       hint={field.hint}
       error={error}
       required={field.required}
+      disabled={disabled}
     />
   );
 }

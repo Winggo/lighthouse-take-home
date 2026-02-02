@@ -9,9 +9,10 @@ interface TextFieldProps {
   value: string;
   onChange: (value: string) => void;
   error?: string;
+  disabled?: boolean;
 }
 
-export function TextField({ field, value, onChange, error }: TextFieldProps) {
+export function TextField({ field, value, onChange, error, disabled }: TextFieldProps) {
   if (field.type === "textarea") {
     return (
       <TextArea
@@ -22,6 +23,7 @@ export function TextField({ field, value, onChange, error }: TextFieldProps) {
         hint={field.hint}
         error={error}
         required={field.required}
+        disabled={disabled}
       />
     );
   }
@@ -36,6 +38,7 @@ export function TextField({ field, value, onChange, error }: TextFieldProps) {
       hint={field.hint}
       error={error}
       required={field.required}
+      disabled={disabled}
     />
   );
 }

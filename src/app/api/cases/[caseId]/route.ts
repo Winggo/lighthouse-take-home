@@ -43,6 +43,16 @@ export async function PATCH(
       );
     }
 
+    // Prevent updating evidence data if case is already submitted
+    if (existingCase.status === "submitted") {
+      if (updates.evidenceData !== undefined || updates.completedCriteria !== undefined) {
+        return NextResponse.json(
+          { error: "Cannot update evidence for a submitted case" },
+          { status: 403 }
+        );
+      }
+    }
+
     await updateCase(caseId, updates);
 
     return NextResponse.json({ success: true });
