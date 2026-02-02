@@ -10,17 +10,46 @@ function getCriteriaConfig(criteriaId: string): CriteriaConfig | undefined {
   return O1_CRITERIA.find((c) => c.id === criteriaId);
 }
 
+function getCriteriaStatus(
+  criteriaId: string,
+  completedCriteria: string[],
+  evidenceData?: Record<string, any>
+): "completed" | "in_progress" | "not_started" {
+  // Check if completed
+  if (completedCriteria.includes(criteriaId)) {
+    return "completed";
+  }
+
+  // Check if has any evidence data
+  const criteriaEvidence = evidenceData?.[criteriaId];
+  if (!criteriaEvidence) {
+    return "not_started";
+  }
+
+  // Check if any field has data
+  const hasAnyData = Object.values(criteriaEvidence).some((value) => {
+    if (Array.isArray(value)) {
+      // For arrays (like URLs), check if any non-empty string exists
+      return value.some((item) => item && String(item).trim() !== "");
+    }
+    // For other values, check if non-empty
+    return value !== null && value !== undefined && String(value).trim() !== "";
+  });
+
+  return hasAnyData ? "in_progress" : "not_started";
+}
+
 interface CriteriaSectionProps {
   recommendation: CriteriaRecommendation;
   criteriaConfig: CriteriaConfig;
-  isComplete: boolean;
+  status: "completed" | "in_progress" | "not_started";
   onClick: () => void;
 }
 
 function CriteriaSection({
   recommendation,
   criteriaConfig,
-  isComplete,
+  status,
   onClick,
 }: CriteriaSectionProps) {
   return (
@@ -29,7 +58,7 @@ function CriteriaSection({
       className={`
         w-full text-left p-6 rounded-xl border-2 transition-all
         hover:shadow-lg hover:border-gray-300
-        ${isComplete ? "bg-green-50 border-green-200" : "bg-[#2a3a36] border-gray-700"}
+        bg-[#2a3a36] border-gray-700
       `}
     >
       <div className="flex items-start justify-between gap-4">
@@ -39,7 +68,7 @@ function CriteriaSection({
             <h3 className="text-xl font-semibold text-white">
               {criteriaConfig.name}
             </h3>
-            {isComplete ? (
+            {status === "completed" ? (
               <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 text-sm rounded-full">
                 <svg
                   className="w-4 h-4"
@@ -54,10 +83,14 @@ function CriteriaSection({
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                Complete
+                Completed
+              </span>
+            ) : status === "in_progress" ? (
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 text-sm rounded-full">
+                In Progress
               </span>
             ) : (
-              <span className="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-300 text-sm rounded-full">
+              <span className="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">
                 Not started
               </span>
             )}
@@ -75,7 +108,7 @@ function CriteriaSection({
           </div>
 
           {/* Evidence required */}
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-300">
             <span className="font-medium">Evidence needed: </span>
             {criteriaConfig.fields.filter((f) => f.required).length} required
             fields
@@ -99,8 +132,12 @@ function CriteriaSection({
       </div>
 
       {/* Click hint */}
-      <div className="mt-4 flex items-center text-gray-600 text-sm font-medium">
-        {isComplete ? "View submitted evidence" : "Start collecting evidence"}
+      <div className="mt-4 flex items-center text-gray-400 text-sm font-medium">
+        {status === "completed"
+          ? "View submitted evidence"
+          : status === "in_progress"
+            ? "Continue collecting evidence"
+            : "Start collecting evidence"}
         <svg
           className="w-4 h-4 ml-1"
           fill="none"
@@ -224,7 +261,7 @@ export default function DashboardPage() {
       {/* Main content */}
       <main className="max-w-4xl mx-auto px-4 py-8">
         {isSubmitted ? (
-          <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-8">
+          <div className="bg-green-100 border border-green-200 rounded-xl p-6 mb-8">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
                 <svg
@@ -252,7 +289,7 @@ export default function DashboardPage() {
             </div>
           </div>
         ) : (
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-8">
+          <div className="bg-green-100 border border-gray-200 rounded-xl p-6 mb-8">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center shrink-0">
                 <svg
@@ -304,8 +341,10 @@ export default function DashboardPage() {
             const criteriaConfig = getCriteriaConfig(recommendation.criteriaId);
             if (!criteriaConfig) return null;
 
-            const isComplete = caseData.completedCriteria.includes(
-              recommendation.criteriaId
+            const status = getCriteriaStatus(
+              recommendation.criteriaId,
+              caseData.completedCriteria,
+              caseData.evidenceData
             );
 
             return (
@@ -313,16 +352,27 @@ export default function DashboardPage() {
                 key={recommendation.criteriaId}
                 recommendation={recommendation}
                 criteriaConfig={criteriaConfig}
-                isComplete={isComplete}
+                status={status}
                 onClick={() => handleCriteriaClick(recommendation.criteriaId)}
               />
             );
           })}
         </div>
 
-        {/* Submit button */}
+        {/* Action buttons */}
         {!isSubmitted && (
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => {
+                const url = `${window.location.origin}/dashboard/${caseId}?token=${token}`;
+                navigator.clipboard.writeText(url);
+                alert("Draft saved. Link copied to clipboard.");
+              }}
+            >
+              Save Draft
+            </Button>
             <Button
               size="lg"
               onClick={handleSubmitApplication}
@@ -336,23 +386,6 @@ export default function DashboardPage() {
             </Button>
           </div>
         )}
-
-        {/* Save progress link */}
-        <div className="mt-8 text-center">
-          <p className="text-sm text-gray-500">
-            Save your progress:{" "}
-            <button
-              onClick={() => {
-                const url = `${window.location.origin}/dashboard/${caseId}?token=${token}`;
-                navigator.clipboard.writeText(url);
-                alert("Link copied to clipboard!");
-              }}
-              className="text-gray-600 hover:underline"
-            >
-              Copy resume link
-            </button>
-          </p>
-        </div>
       </main>
     </div>
   );

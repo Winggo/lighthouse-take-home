@@ -117,11 +117,20 @@ export default function EvidencePage() {
       };
 
       const existingCriteria = caseData?.completedCriteria || [];
-      const updatedCompletedCriteria = markComplete
-        ? existingCriteria.includes(criteriaId)
+      let updatedCompletedCriteria: string[];
+
+      if (markComplete) {
+        // Mark as complete
+        updatedCompletedCriteria = existingCriteria.includes(criteriaId)
           ? existingCriteria
-          : [...existingCriteria, criteriaId]
-        : existingCriteria;
+          : [...existingCriteria, criteriaId];
+      } else {
+        // Saving draft: remove from completed if form is now invalid
+        const isFormValid = validateForm();
+        updatedCompletedCriteria = isFormValid
+          ? existingCriteria
+          : existingCriteria.filter((id) => id !== criteriaId);
+      }
 
       await fetch(`/api/cases/${caseId}`, {
         method: "PATCH",
@@ -131,6 +140,13 @@ export default function EvidencePage() {
           completedCriteria: updatedCompletedCriteria,
         }),
       });
+
+      // If saving draft, copy URL to clipboard and show alert
+      if (!markComplete) {
+        const dashboardUrl = `${window.location.origin}/dashboard/${caseId}?token=${token}`;
+        await navigator.clipboard.writeText(dashboardUrl);
+        alert("Draft saved. Link copied to clipboard.");
+      }
 
       // Redirect back to dashboard
       router.push(`/dashboard/${caseId}?token=${token}`);

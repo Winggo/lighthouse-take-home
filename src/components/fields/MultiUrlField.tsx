@@ -33,7 +33,7 @@ export function MultiUrlField({ field, value, onChange, error }: MultiUrlFieldPr
 
   return (
     <div className="w-full space-y-3">
-      <label className="block text-sm font-medium text-gray-700">
+      <label className="block text-sm font-medium text-gray-300">
         {field.label}
         {field.required && <span className="text-red-500 ml-1">*</span>}
       </label>
@@ -71,7 +71,7 @@ export function MultiUrlField({ field, value, onChange, error }: MultiUrlFieldPr
       </Button>
 
       {field.hint && !error && (
-        <p className="text-sm text-gray-500">{field.hint}</p>
+        <p className="text-sm text-gray-400">{field.hint}</p>
       )}
       {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
