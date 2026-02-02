@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { QuestionOption } from "@/lib/schemas/questionnaire";
 
 interface SingleSelectQuestionProps {
@@ -16,14 +16,26 @@ export function SingleSelectQuestion({
   onSubmit,
   options,
 }: SingleSelectQuestionProps) {
+  const prevValueRef = useRef(value);
+
   const selectOption = useCallback(
     (optionId: string) => {
       onChange(optionId);
-      // Auto-submit after selection with small delay for visual feedback
-      setTimeout(() => onSubmit(), 200);
     },
-    [onChange, onSubmit]
+    [onChange]
   );
+
+  // Auto-submit after selection (after state update completes)
+  // Only submit if value actually changed (not on initial render or re-renders)
+  useEffect(() => {
+    const valueChanged = prevValueRef.current !== value;
+    prevValueRef.current = value;
+
+    if (valueChanged && value !== null) {
+      const timer = setTimeout(() => onSubmit(), 200);
+      return () => clearTimeout(timer);
+    }
+  }, [value, onSubmit]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -56,8 +68,8 @@ export function SingleSelectQuestion({
                 flex items-center gap-3
                 ${
                   isSelected
-                    ? "border-blue-600 bg-blue-50"
-                    : "border-gray-200 hover:border-gray-300"
+                    ? "border-[#D97757] bg-[#D97757]"
+                    : "border-gray-600 hover:border-[#D97757]"
                 }
               `}
             >
@@ -66,15 +78,15 @@ export function SingleSelectQuestion({
                   w-7 h-7 rounded border-2 flex items-center justify-center text-sm font-bold shrink-0
                   ${
                     isSelected
-                      ? "border-blue-600 bg-blue-600 text-white"
-                      : "border-gray-400 text-gray-400"
+                      ? "border-[#D97757] bg-[#D97757] text-white"
+                      : "border-gray-500 text-gray-400"
                   }
                 `}
               >
                 {keyLabel}
               </span>
               <span
-                className={`text-lg ${isSelected ? "text-gray-900" : "text-gray-700"}`}
+                className={`text-lg ${isSelected ? "text-white" : "text-gray-300"}`}
               >
                 {option.label}
               </span>
@@ -85,8 +97,8 @@ export function SingleSelectQuestion({
 
       <p className="mt-4 text-gray-400 text-sm">
         Press{" "}
-        <span className="font-mono bg-gray-100 px-1 rounded">A</span>-
-        <span className="font-mono bg-gray-100 px-1 rounded">
+        <span className="font-mono bg-gray-700 px-1 rounded">A</span>-
+        <span className="font-mono bg-gray-700 px-1 rounded">
           {String.fromCharCode(64 + options.length)}
         </span>{" "}
         to select

@@ -17,9 +17,9 @@ export function ProgressDots({ current, total }: ProgressDotsProps) {
             key={i}
             className={`
               rounded-full transition-all duration-300
-              ${isCurrent ? "w-6 h-2 bg-blue-600" : "w-2 h-2"}
-              ${isCompleted ? "bg-blue-600" : ""}
-              ${!isCompleted && !isCurrent ? "bg-gray-300" : ""}
+              ${isCurrent ? "w-6 h-2 bg-[#D97757]" : "w-2 h-2"}
+              ${isCompleted ? "bg-[#D97757]" : ""}
+              ${!isCompleted && !isCurrent ? "bg-gray-700" : ""}
             `}
           />
         );

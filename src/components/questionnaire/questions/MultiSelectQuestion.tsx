@@ -75,8 +75,8 @@ export function MultiSelectQuestion({
                 flex items-center gap-3
                 ${
                   isSelected
-                    ? "border-blue-600 bg-blue-50"
-                    : "border-gray-200 hover:border-gray-300"
+                    ? "border-[#D97757] bg-[#D97757]"
+                    : "border-gray-600 hover:border-[#D97757]"
                 }
               `}
             >
@@ -85,8 +85,8 @@ export function MultiSelectQuestion({
                   w-7 h-7 rounded border-2 flex items-center justify-center text-sm font-bold shrink-0
                   ${
                     isSelected
-                      ? "border-blue-600 bg-blue-600 text-white"
-                      : "border-gray-400 text-gray-400"
+                      ? "border-[#D97757] bg-[#D97757] text-white"
+                      : "border-gray-500 text-gray-400"
                   }
                 `}
               >
@@ -109,7 +109,7 @@ export function MultiSelectQuestion({
                 )}
               </span>
               <span
-                className={`text-lg ${isSelected ? "text-gray-900" : "text-gray-700"}`}
+                className={`text-lg ${isSelected ? "text-white" : "text-gray-300"}`}
               >
                 {option.label}
               </span>
@@ -126,14 +126,14 @@ export function MultiSelectQuestion({
             inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors
             ${
               value.length > 0
-                ? "bg-blue-600 text-white hover:bg-blue-700"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                ? "bg-[#D97757] text-white hover:bg-[#C86647]"
+                : "bg-gray-800 text-gray-500 cursor-not-allowed"
             }
           `}
         >
           OK
           <span
-            className={`text-sm ${value.length > 0 ? "text-blue-200" : "text-gray-400"}`}
+            className={`text-sm ${value.length > 0 ? "text-gray-300" : "text-gray-600"}`}
           >
             {value.length} selected
           </span>
@@ -142,11 +142,11 @@ export function MultiSelectQuestion({
 
       <p className="mt-3 text-gray-400 text-sm">
         Press{" "}
-        <span className="font-mono bg-gray-100 px-1 rounded">A</span>-
-        <span className="font-mono bg-gray-100 px-1 rounded">
+        <span className="font-mono bg-gray-700 px-1 rounded">A</span>-
+        <span className="font-mono bg-gray-700 px-1 rounded">
           {String.fromCharCode(64 + options.length)}
         </span>{" "}
-        to select, <span className="font-mono bg-gray-100 px-1 rounded">Enter</span>{" "}
+        to select, <span className="font-mono bg-gray-700 px-1 rounded">Enter</span>{" "}
         to continue
       </p>
     </div>

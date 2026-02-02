@@ -144,7 +144,7 @@ export default function EvidencePage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600" />
       </div>
     );
   }
@@ -153,7 +153,7 @@ export default function EvidencePage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-500 mb-4">Criteria not found</p>
+          <p className="text-gray-400 mb-4">Criteria not found</p>
           <Button onClick={() => router.push(`/dashboard/${caseId}?token=${token}`)}>
             Back to Dashboard
           </Button>
@@ -165,13 +165,13 @@ export default function EvidencePage() {
   const isAlreadyComplete = caseData?.completedCriteria.includes(criteriaId);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#374B46]">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-[#2a3a36] border-b border-gray-700">
         <div className="max-w-3xl mx-auto px-4 py-6">
           <button
             onClick={() => router.push(`/dashboard/${caseId}?token=${token}`)}
-            className="flex items-center text-gray-600 hover:text-gray-900 mb-4"
+            className="flex items-center text-gray-300 hover:text-white mb-4"
           >
             <svg
               className="w-5 h-5 mr-1"
@@ -188,19 +188,19 @@ export default function EvidencePage() {
             </svg>
             Back to Dashboard
           </button>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-white">
             {criteriaConfig.name}
           </h1>
-          <p className="text-gray-600 mt-1">{criteriaConfig.fullDescription}</p>
+          <p className="text-gray-300 mt-1">{criteriaConfig.fullDescription}</p>
         </div>
       </header>
 
       {/* Help text */}
       <div className="max-w-3xl mx-auto px-4 py-6">
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
           <div className="flex items-start gap-3">
             <svg
-              className="w-5 h-5 text-blue-600 mt-0.5 shrink-0"
+              className="w-5 h-5 text-gray-600 mt-0.5 shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -213,14 +213,14 @@ export default function EvidencePage() {
               />
             </svg>
             <div>
-              <h3 className="font-medium text-blue-800">Tips for Strong Evidence</h3>
-              <p className="text-blue-700 text-sm mt-1">{criteriaConfig.helpText}</p>
+              <h3 className="font-medium text-gray-800">Tips for Strong Evidence</h3>
+              <p className="text-gray-700 text-sm mt-1">{criteriaConfig.helpText}</p>
             </div>
           </div>
         </div>
 
         {/* Form */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-[#2a3a36] rounded-xl shadow-sm border border-gray-700 p-6">
           <div className="space-y-6">
             {criteriaConfig.fields.map((field: FieldConfig) => (
               <FieldRenderer

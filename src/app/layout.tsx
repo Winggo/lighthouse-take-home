@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "O-1 Visa Case Builder",
-  description: "Collect and organize your O-1 visa evidence",
+  description: "Build your O-1 visa case strategy",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased min-h-screen bg-gray-50">
+      <body className="antialiased min-h-screen">
         {children}
       </body>
     </html>

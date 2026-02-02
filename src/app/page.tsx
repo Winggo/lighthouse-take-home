@@ -31,33 +31,33 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-[#374B46]">
       <div className="max-w-4xl mx-auto px-4 py-16">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-white mb-4">
             O-1 Visa Case Builder
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             We&apos;ll guide you step-by-step through collecting evidence for your
             O-1 visa application.
           </p>
         </div>
 
         {/* Main Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        <div className="bg-[#2a3a36] rounded-2xl shadow-xl p-8 mb-8">
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+            <div className="mb-6 p-4 bg-red-900/30 border border-red-700 rounded-lg text-red-300">
               {error}
             </div>
           )}
 
           {/* Start New */}
           <div className="text-center mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">
+            <h2 className="text-xl font-semibold text-white mb-3">
               Ready to start?
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-300 mb-6">
               Begin building your O-1 case. You can save your
               progress at any time and resume later.
             </p>
@@ -73,20 +73,20 @@ export default function HomePage() {
         </div>
 
         {/* O-1 Info */}
-        <div className="bg-white rounded-xl p-6 shadow-md mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-[#2a3a36] rounded-xl p-6 shadow-md mb-8">
+          <h2 className="text-lg font-semibold text-white mb-4">
             What is the O-1 Visa?
           </h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-300 mb-4">
             The O-1 visa is for individuals with{" "}
-            <strong>extraordinary ability</strong> in sciences, education,
+            <strong className="text-white">extraordinary ability</strong> in sciences, education,
             business, or athletics. To qualify, you must demonstrate evidence
-            for at least <strong>3 of 8 criteria</strong> defined by USCIS.
+            for at least <strong className="text-white">3 of 8 criteria</strong> defined by USCIS.
           </p>
           <div className="grid md:grid-cols-2 gap-4 mt-4">
             <div>
-              <h3 className="font-medium text-gray-800 mb-2">The 8 Criteria:</h3>
-              <ul className="text-sm text-gray-600 space-y-1">
+              <h3 className="font-medium text-white mb-2">The 8 Criteria:</h3>
+              <ul className="text-sm text-gray-300 space-y-1">
                 <li>1. Nationally/internationally recognized awards</li>
                 <li>2. Membership in distinguished organizations</li>
                 <li>3. Published material in major professional media</li>
@@ -98,8 +98,8 @@ export default function HomePage() {
               </ul>
             </div>
             <div>
-              <h3 className="font-medium text-gray-800 mb-2">What We Collect:</h3>
-              <ul className="text-sm text-gray-600 space-y-1">
+              <h3 className="font-medium text-white mb-2">What We Collect:</h3>
+              <ul className="text-sm text-gray-300 space-y-1">
                 <li>• Your basic information</li>
                 <li>• Context about your achievements</li>
                 <li>• Evidence to support your case strategy</li>
@@ -138,10 +138,10 @@ function InfoCard({
   icon?: string;
 }) {
   return (
-    <div className="bg-white rounded-xl p-6 shadow-md">
+    <div className="bg-[#2a3a36] rounded-xl p-6 shadow-md">
       {icon && <div className="text-3xl mb-3">{icon}</div>}
-      <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-sm text-gray-600">{description}</p>
+      <h3 className="font-semibold text-white mb-2">{title}</h3>
+      <p className="text-sm text-gray-300">{description}</p>
     </div>
   );
 }
