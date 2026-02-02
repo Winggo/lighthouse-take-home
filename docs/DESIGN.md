@@ -77,17 +77,17 @@ How to address observed problem?
     - Support saving progress and resuming after.
 
 Solution
-    1. Start with a step by step Typeform style flow with a progress bar. Each page asks the user 1 question to incrementally build their profile.
-        - This 1 question-at-a-time approach encourages the user to feel that they are making progess right from the beginning.
-        - User does need to read big chunks of text, reducing cognitive processing load.
-        - Progress is saved after answering each question. User can resume at any point.
-    2. Based on the profile data, predict the most applicable criteria for the candidate using LLMs, with a score applied to each criteria. The score represents the strength of the user's profile for that particular criteria.
-        - This eliminates decision fatique from user having to decide which criteria to apply. Our system handles that for them.
-    3. Next, display the 3 most applicable criteria on a dashboard.
-        - This birds-eye view paints a clear action plan for the user to follow and make progress.
-        - Progress can be saved at any point. User can resume at any time via a link.
-        - This structure allows the user to explore and submit evidence for any criteria in any order. This solves the problem of the user feeling overwhelmed from needing to gather all documents up front. If they suddenly find relevant evidence mid-day, just go to the dashboard, upload it, and forget about it.
-    5. After all evidence is collected for all 3 criteria, user can submit the case for the case manager to review.
+1. Start with a step by step Typeform style flow with a progress bar. Each page asks the user 1 question to incrementally build their profile.
+    - This 1 question-at-a-time approach encourages the user to feel that they are making progess right from the beginning.
+    - User does need to read big chunks of text, reducing cognitive processing load.
+    - Progress is saved after answering each question. User can resume at any point.
+2. Based on the profile data, predict the most applicable criteria for the candidate using LLMs, with a score applied to each criteria. The score represents the strength of the user's profile for that particular criteria.
+    - This eliminates decision fatique from user having to decide which criteria to apply. Our system handles that for them.
+3. Next, display the 3 most applicable criteria on a dashboard.
+    - This birds-eye view paints a clear action plan for the user to follow and make progress.
+    - Progress can be saved at any point. User can resume at any time via a link.
+    - This structure allows the user to explore and submit evidence for any criteria in any order. This solves the problem of the user feeling overwhelmed from needing to gather all documents up front. If they suddenly find relevant evidence mid-day, just go to the dashboard, upload it, and forget about it.
+4. After all evidence is collected for all 3 criteria, user can submit the case for the case manager to review.
 
 Additional features supported
     - The app supports live Q&A throughout the entire process. Just click on the chat widget on the bottom-right corner to open a chatbox.
